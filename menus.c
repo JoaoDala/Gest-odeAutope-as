@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "menus.h"
 #include "funcoes.h"
 
@@ -23,6 +24,9 @@
 #define ADICIONAR_PRODUTO 2
 #define VOLTAR 3
 
+#define USERNAME "Admin"
+#define PASSWORD "1234"
+
 void apresentacao()
 {
 	char opcao;
@@ -42,7 +46,13 @@ void apresentacao()
 	scanf(" %c", &opcao);
 
 	if (opcao == 'S' || opcao == 's')
-		menuPrincipal();
+		if (login())
+		{
+			menuPrincipal();
+		} else
+		{
+			printf("Acesso negado, tente novamente!\n");
+		}
 	else
 	{
 		printf("Até a proxima!\n");
@@ -204,4 +214,27 @@ void menuEstoque()
 			printf("Opcao Invalida\n");
 		}
 	} while (opcao != VOLTAR);
+}
+int login() 
+{
+	char username[50];
+	char password[50];
+
+	printf("Nome do usuario: ");
+	scanf("%s", username);
+
+	printf("Senha: ");
+	scanf("%s",password);
+
+	if (strcmp(username, USERNAME) == 0 && strcmp(password, PASSWORD) == 0)
+	{
+		printf("Login bem sucedido!\n");
+		return 1;
+	
+	}else
+	{
+		printf("Nome de usuario ou senha incorretas.\n");
+		return 0;
+	}
+
 }
